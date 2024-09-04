@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>telros_userTask</title>
+</head>
+<body>
+<p th:if="${param.user_exists}" style="color: brown">Ошибка, пользователь не существует.</p>
+
+<div th:if="${users != null and !users.isEmpty()}">
+    <table border="1" align="center">
+        <h2>Актуальный регистр пользователей:</h2>
+        <tr>
+            <td>ID</td>
+            <td>lastName</td>
+            <td>firstName</td>
+            <td>middleName</td>
+            <td>email</td>
+            <td>phoneNumber</td>
+        </tr>
+        <tr th:each="us : ${users}">
+            <td th:text="${us.id}"></td>
+            <td th:text="${us.lastName}"></td>
+            <td th:text="${us.firstName}"></td>
+            <td th:text="${us.middleName}"></td>
+            <td th:text="${us.email}"></td>
+            <td th:text="${us.phoneNumber}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
