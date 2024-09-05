@@ -8,6 +8,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Controller("/users")
+@Controller("/account")
 public class UserController {
     private final UserService userService;
 
@@ -24,6 +27,33 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    @GetMapping("/registration")
+    public String getRegistrationFormHTML(User user){
+        if (isAuthenticated()) return "redirect:/account";
+        return "registrationForm";
+    }
+    @PostMapping("/registration")
+    public String addNewUserHTML(@Valid User user, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) return "registrationForm";
+        try {
+            userService.saveUser(user);
+        } catch (TaskException e) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+            return "redirect:/account/registration?user_exists";
+        }
+        return "redirect:/account/login";
+    }
+    @GetMapping("login")
+    public String login() {
+        if (isAuthenticated()) return "redirect:/account";
+        return "login";
+    }
+
+    @GetMapping
+    public String account(){
+        return "account";
+    }
+
     @GetMapping("/getAll")
     public String getAll(Model model){
         List<User> usersList = userService.getAllUsers();
@@ -40,9 +70,9 @@ public class UserController {
        try {
            userService.createdUser(user);
         } catch (TaskException t) {
-           return "redirect:/users/add?user_exists";
+           return "redirect:/account/add?user_exists";
         }
-       return "redirect:/users/getAll";
+       return "redirect:/account/getAll";
     }
 
     @DeleteMapping("/del/{id}")
@@ -60,5 +90,12 @@ public class UserController {
         } catch (TaskException t){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, t.getMessage());
         }
+    }
+    private boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class. isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
     }
 }

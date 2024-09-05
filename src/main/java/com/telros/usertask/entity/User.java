@@ -9,6 +9,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
+    @NotNull(message = "name not null")
+    @NotEmpty (message = "name not empty")
+    @Column(nullable = false, unique = true)
+    private String username;
+    @NotNull
+    @NotEmpty
+    @Column(nullable = false)
+    private String password;
     @NotBlank(message = "lastName not null")
     @Column(nullable = false)
 private String lastName;
@@ -27,16 +35,16 @@ private String email;
     @Max(99999999999L)
     @Column(unique = true, nullable = false)
 private long phoneNumber;
+    @ManyToOne
+    private Role role;
 
     public User() {
     }
-    public User(Long id, String lastName, String firstName, String middleName, String email, long phoneNumber) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.middleName = middleName;
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
         this.email = email;
-        this.phoneNumber = phoneNumber;
     }
 
     public Long getId() {
@@ -88,5 +96,29 @@ private long phoneNumber;
 
     public void setPhoneNumber(@NotBlank(message = "phoneNumber not null") @Positive @Max(99999999999L) long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public @NotNull(message = "name not null") @NotEmpty(message = "name not empty") String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@NotNull(message = "name not null") @NotEmpty(message = "name not empty") String username) {
+        this.username = username;
+    }
+
+    public @NotNull @NotEmpty String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotNull @NotEmpty String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

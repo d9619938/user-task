@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDetailRepository extends CrudRepository<UserDetail, Long> {
+    boolean existsById(long id);
+
     Optional<UserDetail> findByUser(User user);
+    UserDetail findById(long id);
     Optional<List<UserDetail>> findByBirthDate(LocalDate birthDate);
 }

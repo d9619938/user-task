@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Telros_userTask</title>
+</head>
+<body>
+
+<div>
+
+    <h1 sec:authorize="isAuthenticated()">
+    Приветствуем Вас в нашем приложении,
+    <span sec:authentication="name"></span>!
+    </h1>
+
+
+    <h3 sec:authorize="hasRole('USER')">
+        Вы авторизованы как ПОЛЬЗОВАТЕЛЬ.
+    </h3>
+
+
+    <h3 sec:authorize="hasRole('ADMIN')">
+        Вы авторизованы как АДМИНИСТРАТОР и можете все).
+    </h3>
+
+</div>
+
+</body>
+</html>
