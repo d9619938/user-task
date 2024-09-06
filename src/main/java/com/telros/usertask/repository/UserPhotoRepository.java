@@ -9,6 +9,5 @@ import java.util.Optional;
 public interface UserPhotoRepository extends CrudRepository<UserPhoto, Long> {
     Optional<UserPhoto> findByUser(User user);
     Optional<UserPhoto> findByPhotoPath(String photoPath);
-
-
+    boolean existsUserPhotoByUser(User user);
 }
