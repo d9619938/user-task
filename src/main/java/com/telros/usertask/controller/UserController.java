@@ -19,7 +19,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Controller("/account")
+@Controller
+@RequestMapping("/account")
 public class UserController {
     private final UserService userService;
 

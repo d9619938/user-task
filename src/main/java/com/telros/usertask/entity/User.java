@@ -17,23 +17,22 @@ private Long id;
     @NotEmpty
     @Column(nullable = false)
     private String password;
-    @NotBlank(message = "lastName not null")
-    @Column(nullable = false)
+//    @NotBlank(message = "lastName not null")
+//    @Column(nullable = false)
 private String lastName;
-    @NotBlank(message = "firstName not null")
-    @Column(nullable = false)
+//    @NotBlank(message = "firstName not null")
+//    @Column(nullable = false)
 private String firstName;
-    @NotBlank(message = "middleName not null")
-    @Column(nullable = false)
+//    @NotBlank(message = "middleName not null")
+//    @Column(nullable = false)
 private String middleName;
     @NotNull(message = "email not null")
     @Email
-    @Column(unique = true)
 private String email;
-    @NotBlank(message = "phoneNumber not null")
-    @Positive
-    @Max(99999999999L)
-    @Column(unique = true, nullable = false)
+//    @NotBlank(message = "phoneNumber not null")
+//    @Positive
+//    @Max(99999999999L)
+//    @Column(unique = true, nullable = false)
 private long phoneNumber;
     @ManyToOne
     private Role role;
@@ -55,49 +54,6 @@ private long phoneNumber;
         this.id = id;
     }
 
-    public @NotBlank(message = "lastName not null") String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(@NotBlank(message = "lastName not null") String lastName) {
-        this.lastName = lastName;
-    }
-
-    public @NotBlank(message = "firstName not null") String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(@NotBlank(message = "firstName not null") String firstName) {
-        this.firstName = firstName;
-    }
-
-    public @NotBlank(message = "middleName not null") String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(@NotBlank(message = "middleName not null") String middleName) {
-        this.middleName = middleName;
-    }
-
-    public @NotNull(message = "email not null") @Email String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@NotNull(message = "email not null") @Email String email) {
-        this.email = email;
-    }
-
-    @NotBlank(message = "phoneNumber not null")
-    @Positive
-    @Max(99999999999L)
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(@NotBlank(message = "phoneNumber not null") @Positive @Max(99999999999L) long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public @NotNull(message = "name not null") @NotEmpty(message = "name not empty") String getUsername() {
         return username;
     }
@@ -112,6 +68,46 @@ private long phoneNumber;
 
     public void setPassword(@NotNull @NotEmpty String password) {
         this.password = password;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public @NotNull(message = "email not null") @Email String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@NotNull(message = "email not null") @Email String email) {
+        this.email = email;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Role getRole() {

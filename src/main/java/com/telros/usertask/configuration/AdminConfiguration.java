@@ -6,6 +6,7 @@ import com.telros.usertask.exception.TaskException;
 import com.telros.usertask.repository.RoleRepository;
 import com.telros.usertask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,7 @@ public class AdminConfiguration {
         this.userService = userService;
         this.roleRepository = roleRepository;
     }
-
+@Bean
     public User AdminSetUp() throws TaskException {
         User admin = new User();
         admin.setUsername("admin");
